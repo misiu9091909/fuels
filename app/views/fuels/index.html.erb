@@ -1,0 +1,38 @@
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+
+<h1>Prices of fuels at Polish Lukoil gas stations</h1>
+List published: <%= Fuel.last_run_date %><br>
+
+<%=  link_to 'update', action: :check_remote  %><br>
+Last update check:
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Fuel type</th>
+      <th>Price</th>
+      <th>Site</th>
+      <th>Date and time</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @fuels_current.sort_by{|value| value.price}.each do |fuel| %>
+      <tr>
+        <td><%= fuel.fuel_type %></td>
+        <td><%= number_with_precision(fuel.price, :precision => 2) %></td>
+        <td><%= fuel.site_id %></td>
+        <td><%= fuel.created_at %></td>
+      </tr>
+    <% end %>
+
+  </tbody>
+</table>
+
+
+<br>
